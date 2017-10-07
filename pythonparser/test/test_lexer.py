@@ -142,10 +142,10 @@ class LexerTestCase(unittest.TestCase):
                          "int", 83)
         self.assertLexesVersions(
                          "123L", [(2,6)],
-                         "int", 123)
+                         "long", 123)
         self.assertLexesVersions(
                          "123l", [(2,6)],
-                         "int", 123)
+                         "long", 123)
 
         self.assertDiagnosesVersions(
                          "0123", [(3,0)],
@@ -357,6 +357,10 @@ class LexerTestCase(unittest.TestCase):
                          "newline", None,
                          "dedent",  None,
                          expect_trailing_nl=False)
+
+    def test_stmt_at_eof(self):
+        self.assertLexes("x",
+                         "ident",   "x")
 
     def test_interactive(self):
         self.assertLexes("x\n\n",
